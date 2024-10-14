@@ -1,0 +1,198 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./assets/sass/style.scss";
+// Replace above style with this css file to enable RTL styles
+// @import "./assets/css/style.rtl";
+@import "./assets/sass/plugins.scss";
+// @import "./assets/css/style.rtl.css";
+@import "./assets/sass/style.angular.scss";
+
+// Custom
+@import "./assets/sass/dx.custom.scss";
+@import "./assets/sass/pax.custom.scss";
+@import "./assets/sass/custom.scss";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.bg-light-focus {
+  background-color: #cee2ec !important;
+}
+
+dx-file-uploader .dx-fileuploader-input-wrapper {
+  border: 2px dashed #ccc !important;
+  padding: 170px 15px 30px !important;
+  text-align: center;
+  background-color: rgba(4, 147, 213, 0.08);
+  min-height: 300px;
+  position: relative;
+}
+
+#ref-uploadFile
+  dx-file-uploader
+  .dx-fileuploader-content
+  > .dx-fileuploader-upload-button {
+  display: none;
+}
+
+#ref-uploadFile
+  dx-file-uploader
+  .dx-button-has-icon
+  .dx-button-content
+  .dx-icon.dx-icon-upload {
+  display: none;
+}
+
+.dx-fileuploader-file-container
+  > .dx-fileuploader-button-container:nth-child(2) {
+  display: none;
+}
+
+.dx-fileuploader-dragover .dx-fileuploader-input-wrapper {
+  border: 2px dashed #038fde !important;
+  background-color: rgba(4, 147, 213, 0.3);
+}
+
+dx-file-uploader .dx-fileuploader-input-wrapper:before {
+  content: "\e084";
+  font-family: "simple-line-icons";
+  font-size: 140px;
+  position: absolute;
+  top: 80px;
+  padding: 0;
+  margin: 0;
+  line-height: 30px;
+  opacity: 0.1;
+  color: #2a93d5;
+  right: 0;
+}
+
+dx-file-uploader .dx-button {
+  float: none !important;
+  border-radius: 50px;
+  color: #2a93d5;
+  border-color: #2a93d5;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  position: relative;
+  z-index: 1;
+}
+
+dx-file-uploader .dx-button:hover {
+  background-color: #2a93d5;
+  border-color: #2a93d5;
+  color: #fff;
+}
+
+dx-file-uploader .dx-fileuploader-input-container {
+  display: block;
+  margin-top: 20px;
+  position: static;
+}
+
+dx-file-uploader .dx-fileuploader-file-info {
+  float: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  max-width: 70%;
+  flex: 0 0 70%;
+  flex-direction: column;
+}
+
+dx-file-uploader .dx-fileuploader-file-name {
+  padding: 0;
+  float: none;
+  line-height: 18px;
+  white-space: normal;
+}
+
+dx-file-uploader .dx-fileuploader-file-size {
+  float: none;
+  vertical-align: baseline;
+  padding: 0;
+  line-height: 16px;
+  margin-left: 0;
+}
+
+.dx-fileuploader-dragover
+  .dx-fileuploader-input-wrapper
+  .dx-fileuploader-button {
+  display: inline-block !important;
+}
+
+.dx-fileuploader-dragover .dx-button {
+  display: inline-block !important;
+}
+
+.dx-fileuploader-dragover .dx-button + .dx-fileuploader-input-container {
+  border: none;
+  padding: 0;
+}
+
+.dx-fileuploader-dragover .dx-fileuploader-input-label {
+  padding: 8px 9px;
+}
+
+.dx-fileuploader-dragover .dx-fileuploader-input {
+  padding: 7px 0;
+}
+
+dx-file-uploader .dx-fileuploader-input {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  z-index: 0;
+}
+
+dx-file-uploader .dx-fileuploader-input-label {
+  position: static;
+}
+
+dx-file-uploader .dx-fileuploader-file {
+  display: flex;
+  align-items: center;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eee;
+  justify-content: space-between;
+  white-space: normal;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+@media (min-width: 768px) {
+  dx-file-uploader .dx-fileuploader-file {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+}
+
+dx-file-uploader
+  dx-fileuploader-file-container:last-child
+  .dx-fileuploader-file {
+  border-bottom: 0;
+}
+
+.dx-fileuploader-show-file-list .dx-fileuploader-files-container {
+  padding-top: 0;
+}
+
+.dx-fileuploader-wrapper {
+  padding: 0;
+  margin: 7px 0;
+}
+.dx-fileuploader-content > .dx-fileuploader-upload-button {
+  display: none !important;
+}
+[data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link.active{
+  background-color:#18ff00 !important;
+}

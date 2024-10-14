@@ -1,0 +1,144 @@
+<dx-popup
+  #dxPopupInfo
+  [width]="720"
+  [height]="'auto'"
+  [showTitle]="true"
+  title="Upload Statement File"
+  [dragEnabled]="true"
+  [hideOnOutsideClick]="false"
+>
+  <div *dxTemplate="let data of 'content'">
+    <dx-scroll-view width="100%" height="100%">
+      <div
+        class="card card-outline-yellow no-padding form-block mb-1 no-shadow"
+      >
+        <div class="card-body py-0 px-10">
+          <ng-container>
+            <dx-validation-group #formValidator>
+              <form class="form-info">
+                <div class="form-row">
+                  <div class="form-col">
+                    <label class="caption" for="">
+                      <span class="required"> ปี </span>
+                    </label>
+                    <dx-select-box
+                      [items]="dataYear"
+                      [(value)]="selectedInfo.year"
+                      [searchEnabled]="true"
+                      [showClearButton]="true"
+                      (onSelectionChanged)="
+                        selectedInfo.year = $event.selectedItem
+                      "
+                    >
+                      <!-- <dx-validator>
+                        <dxi-validation-rule
+                          type="required"
+                          message="ปี ห้ามว่าง"
+                        ></dxi-validation-rule>
+                      </dx-validator> -->
+                    </dx-select-box>
+                  </div>
+                  <div class="form-col">
+                    <label class="caption" for="">
+                      <span class="required"> เดือน </span>
+                    </label>
+                    <dx-select-box
+                      [(value)]="selectedInfo.monthId"
+                      [items]="dataMonth"
+                      displayExpr="name"
+                      valueExpr="id"
+                      [searchEnabled]="true"
+                      [showClearButton]="true"
+                    >
+                      <!-- <dx-validator>
+                        <dxi-validation-rule
+                          type="required"
+                          message="เดือน ห้ามว่าง"
+                        ></dxi-validation-rule>
+                      </dx-validator> -->
+                    </dx-select-box>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-col">
+                    <label class="caption" for="">
+                      <span class="required"> ธนาคาร </span>
+                    </label>
+                    <dx-select-box
+                      [(value)]="selectedInfo.BankId"
+                      [(selectedItem)]="selectedInfo.bank"
+                      [items]="dataBank"
+                      displayExpr="bankShortName"
+                      valueExpr="bankId"
+                      [searchEnabled]="true"
+                      [showClearButton]="true"
+                    >
+                      <!-- <dx-validator>
+                        <dxi-validation-rule
+                          type="required"
+                          message="ธนาคาร ห้ามว่าง"
+                        ></dxi-validation-rule>
+                      </dx-validator> -->
+                    </dx-select-box>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-col">
+                    <label class="caption" for="">
+                      <span class="required"> ไฟล์ </span>
+                    </label>
+                    <dx-file-uploader
+                      #dxFileUploader
+                      selectButtonText="Select File"
+                      labelText=""
+                      uploadMode="useForm"
+                    >
+                    </dx-file-uploader>
+                  </div>
+                </div>
+              </form>
+            </dx-validation-group>
+          </ng-container>
+        </div>
+      </div>
+    </dx-scroll-view>
+  </div>
+  <dxi-toolbar-item
+    widget="dxButton"
+    toolbar="bottom"
+    location="after"
+    [options]="{ template: 'templatePopupToolbarItemSave' }"
+  >
+    <div *dxTemplate="let itemTemplate of 'templatePopupToolbarItemSave'">
+      <div class="center-h">
+        <a
+          class="btn btn-sm btn-w-sm btn-primary fs-14 min-w-100px"
+          data-provide="tooltip"
+          title="{{ 'Upload' }}"
+          (click)="uploadClick()"
+        >
+          <i class="fa fa-check"></i> {{ "Upload" }}</a
+        >
+      </div>
+    </div>
+  </dxi-toolbar-item>
+  <dxi-toolbar-item
+    widget="dxButton"
+    toolbar="bottom"
+    location="after"
+    [options]="{ template: 'templatePopupToolbarItemCancel' }"
+  >
+    <div *dxTemplate="let itemTemplate of 'templatePopupToolbarItemCancel'">
+      <div class="center-h">
+        <a
+          class="btn btn-sm btn-w-sm btn-secondary fs-14 min-w-100px me-10"
+          data-provide="tooltip"
+          title="{{ 'Cancel' }}"
+          (click)="cancelClick()"
+        >
+          <i class="fa fa-close"></i> {{ "Cancel" }}</a
+        >
+      </div>
+    </div>
+  </dxi-toolbar-item>
+</dx-popup>

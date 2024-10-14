@@ -1,0 +1,171 @@
+<dx-popup
+  #dxPopupInfo
+  [width]="800"
+  [height]="'auto'"
+  [maxHeight]="'90%'"
+  [showTitle]="true"
+  title="User Group & Permission Data Entry"
+  [dragEnabled]="true"
+  [hideOnOutsideClick]="false"
+  (onShowing)="clearValidator()"
+  (onShown)="onPopupShown($event)"
+>
+  <div *dxTemplate="let data of 'content'">
+    <dx-scroll-view width="100%" height="100%">
+      <div
+        class="card card-outline-yellow no-padding form-block mb-1 no-shadow"
+      >
+        <div class="card-body py-0 px-10">
+          <ng-container>
+            <dx-validation-group #formValidator>
+              <form class="form-info">
+                <div class="form-row">
+                  <div class="form-col">
+                    <label class="caption" for="">
+                      <span class="required"> User Group Name </span>
+                    </label>
+                    <dx-text-box
+                      [(value)]="selectedInfo.name"
+                      [readOnly]="!isCanEdit"
+                    >
+                      <dx-validator>
+                        <dxi-validation-rule
+                          type="required"
+                          message="User Group Name is required"
+                        ></dxi-validation-rule>
+                      </dx-validator>
+                    </dx-text-box>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-col">
+                    <label class="caption" for="">
+                      <span> Users </span>
+                    </label>
+                    <dx-tag-box
+                      [(value)]="selectedInfo.users"
+                      [items]="dataUser"
+                      displayExpr="fullName"
+                      valueExpr="userId"
+                      [searchEnabled]="true"
+                      [showClearButton]="true"
+                      [readOnly]="!isCanEdit"
+                    ></dx-tag-box>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-col">
+                    <label class="caption" for="">
+                      <span> Permission </span>
+                    </label>
+                    <dx-tree-list
+                      #dxTreeList
+                      [dataSource]="dataPermission"
+                      keyExpr="id"
+                      parentIdExpr="parentMenuId"
+                      [autoExpandAll]="dataPermission.length > 0"
+                      [columnAutoWidth]="true"
+                      [wordWrapEnabled]="true"
+                      [showBorders]="true"
+                    >
+                      <!-- <dxo-search-panel
+                        [visible]="false"
+                        width="250"
+                      ></dxo-search-panel> -->
+                      <!-- <dxo-header-filter [visible]="true"></dxo-header-filter> -->
+                      <!-- <dxo-selection mode="multiple"></dxo-selection> -->
+                      <dxo-sorting mode="none"></dxo-sorting>
+                      <!-- <dxo-column-chooser
+                        [enabled]="false"
+                      ></dxo-column-chooser> -->
+                      <dxi-column
+                        dataField="menuName"
+                        [width]="300"
+                        cellTemplate="menuNameTemplate"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="isView"
+                        caption="View"
+                        [minWidth]="100"
+                        cellTemplate="switchTemplate"
+                      >
+                      </dxi-column>
+                      <dxi-column
+                        dataField="isEdit"
+                        caption="Edit"
+                        cellTemplate="switchTemplate"
+                      ></dxi-column>
+
+                      <div *dxTemplate="let options of 'menuNameTemplate'">
+                        <span
+                          [ngClass]="
+                            options.data?.parentMenuId === 0
+                              ? 'text-gray-900'
+                              : 'text-gray-800'
+                          "
+                          >{{ options.value }}</span
+                        >
+                      </div>
+
+                      <div *dxTemplate="let options of 'switchTemplate'">
+                        <dx-switch
+                          [value]="options.value"
+                          width="70"
+                          (onValueChanged)="
+                            permissionSwitchChanged($event, options)
+                          "
+                          [readOnly]="!isCanEdit"
+                        ></dx-switch>
+                      </div>
+                    </dx-tree-list>
+                  </div>
+                </div>
+
+                <uc-data-audit [selectedInfo]="selectedInfo"></uc-data-audit>
+              </form>
+            </dx-validation-group>
+          </ng-container>
+        </div>
+      </div>
+    </dx-scroll-view>
+  </div>
+  <dxi-toolbar-item
+    widget="dxButton"
+    toolbar="bottom"
+    location="after"
+    [options]="{ template: 'templatePopupToolbarItemSave' }"
+    *ngIf="isCanEdit"
+  >
+    <div *dxTemplate="let itemTemplate of 'templatePopupToolbarItemSave'">
+      <div class="center-h">
+        <a
+          class="btn btn-sm btn-w-sm btn-primary fs-14 min-w-100px"
+          data-provide="tooltip"
+          title="{{ 'Save' }}"
+          (click)="saveClick()"
+        >
+          <i class="fa fa-check"></i> {{ "Save" }}</a
+        >
+      </div>
+    </div>
+  </dxi-toolbar-item>
+  <dxi-toolbar-item
+    widget="dxButton"
+    toolbar="bottom"
+    location="after"
+    [options]="{ template: 'templatePopupToolbarItemCancel' }"
+  >
+    <div *dxTemplate="let itemTemplate of 'templatePopupToolbarItemCancel'">
+      <div class="center-h">
+        <a
+          class="btn btn-sm btn-w-sm btn-secondary fs-14 min-w-100px me-10"
+          data-provide="tooltip"
+          title="{{ 'Cancel' }}"
+          (click)="cancelClick()"
+        >
+          <i class="fa fa-close"></i> {{ "Cancel" }}</a
+        >
+      </div>
+    </div>
+  </dxi-toolbar-item>
+</dx-popup>

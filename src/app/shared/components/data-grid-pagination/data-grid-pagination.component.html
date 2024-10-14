@@ -1,0 +1,39 @@
+<div class="data-grid-pagination d-flex align-items-center justify-content-between" *ngIf="paging.total > 0">
+  <div class="d-flex align-items-center">
+    <span class="me-3">Show</span>
+    <select class="form-select form-select-sm" [(ngModel)]="paging.pageSize" (change)="selectPageChange(1)">
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+    </select>
+    <span class="ms-3">Items</span>
+  </div>
+  <div class="d-flex align-items-center">
+    <span class="me-3" *ngIf="paging.total">
+      Page {{ paging.page }} of {{ getTotalPage() | number: "1.0":"en-US" }} ({{ paging.total | number: "1.0":"en-US" }}
+      items)
+    </span>
+    <ngb-pagination
+      [collectionSize]="paging.total"
+      [(page)]="paging.page"
+      [pageSize]="paging.pageSize"
+      [maxSize]="options.maxSize"
+      [rotate]="options.rotate"
+      [boundaryLinks]="options.boundaryLinks"
+      (pageChange)="selectPageChange($event)">
+      <ng-template ngbPaginationFirst>
+        <i class="bi bi-chevron-double-left fw-bold fs-3"></i>
+      </ng-template>
+      <ng-template ngbPaginationPrevious>
+        <i class="bi bi-chevron-left fw-bold fs-3"></i>
+      </ng-template>
+      <ng-template ngbPaginationNext>
+        <i class="bi bi-chevron-right fw-bold fs-3"></i>
+      </ng-template>
+      <ng-template ngbPaginationLast>
+        <i class="bi bi-chevron-double-right fw-bold fs-3"></i>
+      </ng-template>
+    </ngb-pagination>
+  </div>
+</div>

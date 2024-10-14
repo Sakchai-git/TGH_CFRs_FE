@@ -1,0 +1,115 @@
+<div class="page-wrapper page-list page-list-master" #boundary>
+  <div class="page-content pt-10">
+    <div class="page-content-inner">
+      <div class="card w-100">
+        <div
+          class="card-body d-flex align-item-center justify-content-between flex-wrap p-0"
+        >
+          <div
+            class="page-title d-flex align-items-center justify-content-between me-10 border-end pe-10"
+          >
+            <div class="d-flex flex-column">
+              <ul
+                class="breadcrumb breadcrumb-dot fw-semibold text-gray-600 fs-7 my-1"
+              >
+                <li class="breadcrumb-item text-primary fw-bold">Report</li>
+                <li class="breadcrumb-item text-gray-900 fs-5">KTB Transfer</li>
+              </ul>
+              <!-- <span class="fw-bold fs-2">Run Batch Manual</span> -->
+              <span class="fw-bold fs-7 text-gray-600"
+                >กรุณาเลือกช่วงข้อมูล</span
+              >
+            </div>
+          </div>
+          <div class="d-flex align-items-center">
+            <div class="d-flex">
+              <div class="d-flex align-items-center flex-wrap gap-3">
+                <div class="d-flex align-items-center fw-bold">
+                  <dx-select-box
+                    #dxSelectBoxYear
+                    [dataSource]="dataYear"
+                    placeholder="เลือกปี"
+                    [(value)]="dataFilter.year"
+                    [showClearButton]="false"
+                    width="150"
+                  ></dx-select-box>
+                  <dx-select-box
+                    [dataSource]="dataMonth"
+                    placeholder="เลือกเดือน"
+                    [disabled]="!dataFilter.year"
+                    [(value)]="dataFilter.monthId"
+                    [(selectedItem)]="dataFilter.month"
+                    [showClearButton]="false"
+                    valueExpr="id"
+                    displayExpr="name"
+                    width="180"
+                    class="ms-2"
+                  ></dx-select-box>
+                  <dx-select-box
+                    [dataSource]="dataBank"
+                    placeholder="เลือกธนาคาร"
+                    [(value)]="dataFilter.bankShortName"
+                    [showClearButton]="false"
+                    valueExpr="bankShortName"
+                    displayExpr="bankShortName"
+                    width="250"
+                    class="ms-2"
+                  ></dx-select-box>
+                  <dx-select-box
+                    [dataSource]="dataReportType"
+                    placeholder="เลือกรูปแบบไฟล์"
+                    [(value)]="dataFilter.reportType"
+                    [showClearButton]="false"
+                    valueExpr="code"
+                    displayExpr="name"
+                    width="200"
+                    class="ms-2"
+                  ></dx-select-box>
+                </div>
+                <button
+                  class="btn btn-primary btn-sm btn-round fw-bold min-w-100px"
+                  (click)="downloadClick($event)"
+                >
+                  <span class="text-icon">
+                    <!-- <i class="ki-duotone ki-magnifier">
+                      <i class="path1"></i>
+                      <i class="path2"></i>
+                    </i> -->
+                    <span class="svg-icon svg-icon-muted"
+                      ><svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          opacity="0.3"
+                          d="M19 15C20.7 15 22 13.7 22 12C22 10.3 20.7 9 19 9C18.9 9 18.9 9 18.8 9C18.9 8.7 19 8.3 19 8C19 6.3 17.7 5 16 5C15.4 5 14.8 5.2 14.3 5.5C13.4 4 11.8 3 10 3C7.2 3 5 5.2 5 8C5 8.3 5 8.7 5.1 9H5C3.3 9 2 10.3 2 12C2 13.7 3.3 15 5 15H19Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M13 17.4V12C13 11.4 12.6 11 12 11C11.4 11 11 11.4 11 12V17.4H13Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          opacity="0.3"
+                          d="M8 17.4H16L12.7 20.7C12.3 21.1 11.7 21.1 11.3 20.7L8 17.4Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </span>
+                    Download
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card mt-10">
+        <uc-report-information></uc-report-information>
+      </div>
+    </div>
+  </div>
+</div>

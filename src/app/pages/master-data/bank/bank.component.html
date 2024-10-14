@@ -1,0 +1,226 @@
+<div class="page-wrapper page-list page-list-master">
+  <div class="page-content pt-10">
+    <div class="page-content-inner">
+      <div class="card w-100">
+        <div
+          class="card-body d-flex align-item-center justify-content-between flex-wrap p-0"
+        >
+          <div
+            class="page-title d-flex align-items-center justify-content-between me-10 border-end pe-10"
+          >
+            <div class="d-flex flex-column">
+              <ul
+                class="breadcrumb breadcrumb-dot fw-semibold text-gray-600 fs-7 my-1"
+              >
+                <li class="breadcrumb-item text-primary fw-bold">
+                  Master Data
+                </li>
+                <li class="breadcrumb-item text-gray-900 fs-5">Bank</li>
+              </ul>
+              <!-- <span class="fw-bold fs-2">Run Batch Manual</span> -->
+              <span class="fw-bold fs-7 text-gray-600"
+                >ทั้งหมด {{ dataList.length | number : "1.0-0" }} รายการ</span
+              >
+            </div>
+          </div>
+          <div class="d-flex align-items-center">
+            <div class="d-flex">
+              <div class="d-flex align-items-center flex-wrap gap-3">
+                <!-- <div class="d-flex align-items-center fw-bold">
+                  <dx-text-box
+                    class="w-275px w-xxl-400px"
+                    placeholder="คำค้นหา Keyword..."
+                  ></dx-text-box>
+                </div> -->
+                <button
+                  class="btn btn-primary btn-sm btn-round fw-bold min-w-100px"
+                  (click)="searchClick()"
+                >
+                  <span class="text-icon">
+                    <!-- <i class="ki-duotone ki-magnifier">
+                      <i class="path1"></i>
+                      <i class="path2"></i>
+                    </i> -->
+                    <span class="svg-icon svg-icon-muted"
+                      ><svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M6.8 15.8C7.3 15.7 7.9 16 8 16.5C8.2 17.4 8.99999 18 9.89999 18H17.9C19 18 19.9 17.1 19.9 16V8C19.9 6.9 19 6 17.9 6H9.89999C8.79999 6 7.89999 6.9 7.89999 8V9.4H5.89999V8C5.89999 5.8 7.69999 4 9.89999 4H17.9C20.1 4 21.9 5.8 21.9 8V16C21.9 18.2 20.1 20 17.9 20H9.89999C8.09999 20 6.5 18.8 6 17.1C6 16.5 6.3 16 6.8 15.8Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          opacity="0.3"
+                          d="M12 9.39999H2L6.3 13.7C6.7 14.1 7.3 14.1 7.7 13.7L12 9.39999Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </span>
+                    Reload
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline btn-outline-primary btn-sm btn-round fw-bold"
+                  (click)="newClick()"
+                  *ngIf="checkCanEdit()"
+                >
+                  <span class="text-icon">
+                    <!-- <i class="ki-duotone ki-plus">
+                  <i class="path1"></i>
+                  <i class="path2"></i>
+                </i> -->
+                    <span class="svg-icon svg-icon-muted">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect
+                          opacity="0.5"
+                          x="11.364"
+                          y="20.364"
+                          width="16"
+                          height="2"
+                          rx="1"
+                          transform="rotate(-90 11.364 20.364)"
+                          fill="currentColor"
+                        />
+                        <rect
+                          x="4.36396"
+                          y="11.364"
+                          width="16"
+                          height="2"
+                          rx="1"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </span>
+                    New
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card pt-0 bl-3 border-warning">
+        <div class="card-body px-0 pt-6">
+          <dx-data-grid
+            #dxDataGridList
+            [(dataSource)]="dataList"
+            [showBorders]="true"
+            [allowColumnResizing]="true"
+            [columnAutoWidth]="true"
+            keyExpr="bankId"
+          >
+            <!-- <dxo-column-fixing [enabled]="true"></dxo-column-fixing> -->
+            <dxo-group-panel [visible]="true"></dxo-group-panel>
+            <dxo-selection mode="none"></dxo-selection>
+            <dxo-sorting mode="multiple"></dxo-sorting>
+            <dxo-filter-row visible="true" applyFilter="auto"></dxo-filter-row>
+            <dxo-header-filter visible="true"></dxo-header-filter>
+            <dxo-paging [pageSize]="10"></dxo-paging>
+            <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+            <dxo-pager
+              [showPageSizeSelector]="true"
+              [allowedPageSizes]="[10, 20, 50, 100]"
+              [showInfo]="true"
+            ></dxo-pager>
+            <dxi-column
+              caption="#"
+              alignment="center"
+              width="55"
+              cellTemplate="gridRowNoCellTemplate"
+            >
+            </dxi-column>
+            <!-- <dxi-column
+              dataField="bankId"
+              caption="Bank ID"
+              width="auto"
+              alignment="center"
+            ></dxi-column> -->
+            <dxi-column
+              dataField="bankFullName"
+              caption="ชื่อ ธนาคาร"
+            ></dxi-column>
+            <dxi-column
+              dataField="bankCode"
+              caption="รหัส ธนาคาร"
+              width="auto"
+            ></dxi-column>
+            <dxi-column
+              dataField="bankShortName"
+              caption="ชื่อย่อ (EN)"
+              width="auto"
+            ></dxi-column>
+            <dxi-column
+              dataField="bankShortName2"
+              caption="ชื่อย่อ (TH)"
+              width="auto"
+            ></dxi-column>
+            <dxi-column
+              dataField="updateByName"
+              caption="Updated By"
+              width="140"
+              alignment="center"
+            ></dxi-column>
+            <dxi-column
+            dataField="updateDatetime"
+            caption="Updated Date"
+            alignment="center"
+            dataType="date"
+            format="dd/MM/yyyy HH:mm"
+            width="150"
+          ></dxi-column>
+            <dxi-column
+              cellTemplate="gridActionCellTemplate"
+              caption=""
+              alignment="center"
+              [width]="80"
+              [fixed]="true"
+              fixedPosition="right"
+            ></dxi-column>
+
+            <div *dxTemplate="let option of 'gridRowNoCellTemplate'">
+              <span>{{ option.rowIndex + 1 }}</span>
+            </div>
+
+            <div *dxTemplate="let actionCell of 'gridActionCellTemplate'">
+              <button
+                class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-info p-0 w-20px h-20px"
+                (click)="editClick(actionCell)"
+              >
+                <i
+                  class="fa-solid fa-pen-to-square fs-6"
+                  *ngIf="checkCanEdit()"
+                ></i>
+                <i class="fa-solid fa-eye fs-6" *ngIf="!checkCanEdit()"></i>
+              </button>
+              <span class="px-1" *ngIf="checkCanEdit()"></span>
+              <button
+                class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-danger p-0 w-20px h-20px"
+                (click)="deleteClick(actionCell)"
+                *ngIf="checkCanEdit()"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<bank-info-popup
+  #bankInfoPopup
+  [isCanEdit]="checkCanEdit()"
+  (afterSaved)="doLoadData()"
+></bank-info-popup>

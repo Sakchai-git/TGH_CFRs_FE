@@ -1,0 +1,185 @@
+<dx-popup
+  #dxPopupInfo
+  [width]="1300"
+  [height]="'auto'"
+  [minHeight]="480"
+  [showTitle]="true"
+  title="Auto Reconcile History Logs"
+  [dragEnabled]="true"
+  [hideOnOutsideClick]="false"
+>
+  <div *dxTemplate="let content of 'content'">
+    <dx-scroll-view width="100%" height="100%">
+      <div
+        class="card card-outline-yellow no-padding form-block mb-1 no-shadow"
+      >
+        <div class="card-body py-0 px-10">
+          <ng-container>
+            <dx-data-grid
+              #dxDataGridList
+              [(dataSource)]="data"
+              keyExpr="id"
+              [showBorders]="true"
+              [allowColumnResizing]="true"
+              [columnAutoWidth]="true"
+              [wordWrapEnabled]="true"
+            >
+              <!-- <dxo-column-fixing [enabled]="true"></dxo-column-fixing> -->
+              <dxo-group-panel [visible]="false"></dxo-group-panel>
+              <dxo-selection mode="none"></dxo-selection>
+              <dxo-sorting mode="multiple"></dxo-sorting>
+              <dxo-filter-row
+                visible="true"
+                applyFilter="auto"
+              ></dxo-filter-row>
+              <dxo-header-filter visible="true"></dxo-header-filter>
+              <dxo-paging [pageSize]="10"></dxo-paging>
+              <dxo-column-chooser [enabled]="false"></dxo-column-chooser>
+              <dxo-pager
+                [visible]="false"
+                [showPageSizeSelector]="true"
+                [allowedPageSizes]="[10, 20, 50, 100]"
+                [showInfo]="true"
+              ></dxo-pager>
+              <dxi-column
+                caption="No."
+                alignment="center"
+                width="55"
+                cellTemplate="gridRowNoCellTemplate"
+              >
+              </dxi-column>
+              <dxi-column
+                dataField="year"
+                caption="ปี"
+                width="100"
+                alignment="center"
+              ></dxi-column>
+              <dxi-column
+                dataField="monthName"
+                caption="เดือน"
+                width="100"
+              ></dxi-column>
+              <dxi-column
+                dataField="bankShortName"
+                caption="ธนาคาร"
+                width="150"
+                alignment="center"
+              ></dxi-column>
+
+              <dxi-column
+                cellTemplate="gridStatusCellTemplate"
+                dataField="status"
+                caption="สถานะ"
+                width="150"
+                alignment="center"
+              ></dxi-column>
+              <dxi-column
+                cellTemplate="gridDescriptionCellTemplate"
+                dataField="remark"
+                caption="รายละเอียด"
+              ></dxi-column>
+              <dxi-column
+                dataField="createByName"
+                caption="ประมวลผลโดย"
+                width="150"
+                alignment="center"
+              ></dxi-column>
+              <dxi-column
+                dataField="updateDatetime"
+                caption="Updated Date"
+                alignment="center"
+                dataType="date"
+                format="dd/MM/yyyy HH:mm"
+                width="150"
+              ></dxi-column>
+              <dxi-column
+                cellTemplate="gridActionCellTemplate"
+                caption=""
+                alignment="center"
+                [width]="110"
+              ></dxi-column>
+              <div *dxTemplate="let option of 'gridRowNoCellTemplate'">
+                <span>{{ option.rowIndex + 1 }}</span>
+              </div>
+
+              <div *dxTemplate="let item of 'gridDescriptionCellTemplate'">
+                <span
+                  class="d-block"
+                  style="max-height: 20rem; overflow: auto"
+                  >{{ item.value }}</span
+                >
+              </div>
+
+              <div *dxTemplate="let item of 'gridStatusCellTemplate'">
+                <span
+                  class="badge fw-bold justify-content-center"
+                  [ngClass]="{
+                  'badge-secondary': item.data?.status === 'No Run',
+                  'badge-danger': item.data?.status === 'Fail',
+                  'badge-success': item.data?.status === 'Completed',
+                  'badge-warning': item.data?.status === 'In progress',
+                }"
+                  style="min-width: 80px"
+                  >{{ item.data?.status }}</span
+                >
+              </div>
+
+              <div *dxTemplate="let actionCell of 'gridActionCellTemplate'">
+                <button
+                  class="btn btn-outline btn-outline-primary btn-sm btn-round fw-bold"
+                  style="padding: 0.25rem 0.75rem"
+                  *ngIf="actionCell.rowType === 'data'"
+                  [disabled]="actionCell.data?.isRunning"
+                  (click)="exportClick(actionCell.data)"
+                >
+                  <span class="d-flex align-items-center">
+                    <i class="las la-file-download fs-3"></i>
+                    Export
+                  </span>
+                </button>
+              </div>
+            </dx-data-grid>
+          </ng-container>
+        </div>
+      </div>
+    </dx-scroll-view>
+  </div>
+  <dxi-toolbar-item
+    widget="dxButton"
+    toolbar="bottom"
+    location="after"
+    [options]="{ template: 'templatePopupToolbarItemSave' }"
+  >
+    <div *dxTemplate="let itemTemplate of 'templatePopupToolbarItemSave'">
+      <div class="center-h">
+        <a
+          class="btn btn-sm btn-w-sm btn-primary fs-14 min-w-100px"
+          data-provide="tooltip"
+          title="{{ 'Upload' }}"
+          (click)="okClick()"
+        >
+          <i class="fa fa-check"></i> {{ "OK" }}</a
+        >
+      </div>
+    </div>
+  </dxi-toolbar-item>
+  <!-- <dxi-toolbar-item
+    widget="dxButton"
+    toolbar="bottom"
+    location="after"
+    [options]="{ template: 'templatePopupToolbarItemCancel' }"
+  >
+    <div *dxTemplate="let itemTemplate of 'templatePopupToolbarItemCancel'">
+      <div class="center-h">
+        <a
+          class="btn btn-sm btn-w-sm btn-secondary fs-14 min-w-100px me-10"
+          data-provide="tooltip"
+          title="{{ 'Cancel' }}"
+          (click)="cancelClick()"
+        >
+          <i class="fa fa-close"></i> {{ "Cancel" }}</a
+        >
+      </div>
+    </div>
+  </dxi-toolbar-item> -->
+</dx-popup>

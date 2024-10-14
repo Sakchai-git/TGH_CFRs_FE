@@ -1,0 +1,15 @@
+.report-information-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: solid 1px var(--bs-gray-300);
+  border-radius: 0.425rem;
+  padding: 8rem 4rem;
+  background: linear-gradient(to right, var(--bs-app-bg-color), #f9f9f9);
+
+  img {
+    width: 22%;
+    opacity: 0.6;
+  }
+}

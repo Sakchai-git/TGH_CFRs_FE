@@ -1,0 +1,136 @@
+<dx-popup
+  #dxPopupInfo
+  [width]="720"
+  [height]="'auto'"
+  [showTitle]="true"
+  title="Bank Data Entry"
+  [dragEnabled]="true"
+  [hideOnOutsideClick]="false"
+  (onShowing)="clearValidator()"
+  (onShown)="onPopupShown($event)"
+>
+  <div *dxTemplate="let data of 'content'">
+    <dx-scroll-view width="100%" height="100%">
+      <div
+        class="card card-outline-yellow no-padding form-block mb-1 no-shadow"
+      >
+        <div class="card-body py-0 px-10">
+          <ng-container>
+            <dx-validation-group #formValidator>
+              <form class="form-info">
+                <div class="form-row">
+                  <div class="form-col">
+                    <label class="caption" for="">
+                      <span class="required"> Bank Full Name </span>
+                    </label>
+                    <dx-text-box
+                      [(value)]="selectedInfo.bankFullName"
+                      [readOnly]="!isCanEdit"
+                    >
+                      <dx-validator>
+                        <dxi-validation-rule
+                          type="required"
+                          message="Bank Full Name is required"
+                        ></dxi-validation-rule>
+                      </dx-validator>
+                    </dx-text-box>
+                  </div>
+                  <div class="form-col">
+                    <label class="caption" for="">
+                      <span class="required"> Bank Code </span>
+                    </label>
+                    <dx-text-box
+                      [(value)]="selectedInfo.bankCode"
+                      [readOnly]="!isCanEdit"
+                    >
+                      <dx-validator>
+                        <dxi-validation-rule
+                          type="required"
+                          message="Bank Code is required"
+                        ></dxi-validation-rule>
+                      </dx-validator>
+                    </dx-text-box>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-col">
+                    <label class="caption" for="">
+                      <span class="required"> Bank Short Name </span>
+                    </label>
+                    <dx-text-box
+                      [(value)]="selectedInfo.bankShortName"
+                      [readOnly]="!isCanEdit"
+                    >
+                      <dx-validator>
+                        <dxi-validation-rule
+                          type="required"
+                          message="Bank Short Name is required"
+                        ></dxi-validation-rule>
+                      </dx-validator>
+                    </dx-text-box>
+                  </div>
+                  <div class="form-col">
+                    <label class="caption" for="">
+                      <span class="required"> Bank Short Name 2 </span>
+                    </label>
+                    <dx-text-box
+                      [(value)]="selectedInfo.bankShortName2"
+                      [readOnly]="!isCanEdit"
+                    >
+                      <dx-validator>
+                        <dxi-validation-rule
+                          type="required"
+                          message="Bank Short Name 2 is required"
+                        ></dxi-validation-rule>
+                      </dx-validator>
+                    </dx-text-box>
+                  </div>
+                </div>
+                <uc-data-audit [selectedInfo]="selectedInfo"></uc-data-audit>
+              </form>
+            </dx-validation-group>
+          </ng-container>
+        </div>
+      </div>
+    </dx-scroll-view>
+  </div>
+  <dxi-toolbar-item
+    widget="dxButton"
+    toolbar="bottom"
+    location="after"
+    [options]="{ template: 'templatePopupToolbarItemSave' }"
+    *ngIf="isCanEdit"
+  >
+    <div *dxTemplate="let itemTemplate of 'templatePopupToolbarItemSave'">
+      <div class="center-h">
+        <a
+          class="btn btn-sm btn-w-sm btn-primary fs-14 min-w-100px"
+          data-provide="tooltip"
+          title="{{ 'Save' }}"
+          (click)="saveClick()"
+        >
+          <i class="fa fa-check"></i> {{ "Save" }}</a
+        >
+      </div>
+    </div>
+  </dxi-toolbar-item>
+  <dxi-toolbar-item
+    widget="dxButton"
+    toolbar="bottom"
+    location="after"
+    [options]="{ template: 'templatePopupToolbarItemCancel' }"
+  >
+    <div *dxTemplate="let itemTemplate of 'templatePopupToolbarItemCancel'">
+      <div class="center-h">
+        <a
+          class="btn btn-sm btn-w-sm btn-secondary fs-14 min-w-100px me-10"
+          data-provide="tooltip"
+          title="{{ 'Cancel' }}"
+          (click)="cancelClick()"
+        >
+          <i class="fa fa-close"></i> {{ "Cancel" }}</a
+        >
+      </div>
+    </div>
+  </dxi-toolbar-item>
+</dx-popup>

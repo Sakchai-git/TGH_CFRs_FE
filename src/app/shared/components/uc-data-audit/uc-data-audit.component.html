@@ -1,0 +1,28 @@
+<div class="data-audit-block" *ngIf="selectedInfo.createBy">
+  <form class="form-info">
+    <div class="form-row mb-0">
+      <div class="form-col">
+        <label class="caption" for="">
+          <span> Created Datetime </span>
+        </label>
+        <div class="">
+          <span class="fw-semibold fs-6"
+            >{{ baseUtil.datetimeFormat(selectedInfo.createDatetime) }} by
+            <span class="fw-bold">{{ selectedInfo.createByName }}</span></span
+          >
+        </div>
+      </div>
+      <div class="form-col">
+        <label class="caption" for="">
+          <span> Last Updated Datetime </span>
+        </label>
+        <div class="">
+          <span class="fw-semibold fs-6"
+            >{{ baseUtil.datetimeFormat(selectedInfo.updateDatetime) }} by
+            <span class="fw-bold">{{ selectedInfo.updateByName }}</span></span
+          >
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

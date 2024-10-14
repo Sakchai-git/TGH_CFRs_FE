@@ -1,0 +1,24 @@
+.data-grid-pagination {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--kt-text-gray-400);
+  padding: 1.05rem 0;
+
+  .form-select {
+    width: 5.5rem;
+    padding: 0.367rem 0.775rem;
+    font-weight: 500;
+    font-size: 1rem;
+    border-color: #f3f3f3;
+  }
+
+  ::ng-deep {
+    .page-item {
+      margin-right: 0.2rem;
+      .page-link {
+        font-size: 1rem;
+        border-radius: 0.92rem;
+      }
+    }
+  }
+}

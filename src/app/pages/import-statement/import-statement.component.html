@@ -1,0 +1,336 @@
+<div class="page-wrapper page-list page-list-master" #boundary>
+  <div class="page-content pt-10">
+    <div class="page-content-inner">
+      <div class="card w-100">
+        <div
+          class="card-body d-flex align-item-center justify-content-between flex-wrap p-0"
+        >
+          <div
+            class="page-title d-flex align-items-center justify-content-between me-10 border-end pe-10"
+          >
+            <div class="d-flex flex-column">
+              <ul
+                class="breadcrumb breadcrumb-dot fw-semibold text-gray-600 fs-7 my-1"
+              >
+                <li class="breadcrumb-item text-primary fw-bold">Statement</li>
+                <li class="breadcrumb-item text-gray-900 fs-5">
+                  Import Statement
+                </li>
+              </ul>
+              <!-- <span class="fw-bold fs-2">Run Batch Manual</span> -->
+              <span class="fw-bold fs-7 text-gray-600"></span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center">
+            <div class="d-flex">
+              <div class="d-flex align-items-center flex-wrap gap-3">
+                <div class="d-flex align-items-center fw-bold">
+                  <!-- <dx-text-box
+                    class="w-275px w-xxl-400px"
+                    placeholder="คำค้นหา Keyword..."
+                  ></dx-text-box> -->
+                  <dx-select-box
+                    #dxSelectBoxYear
+                    [dataSource]="dataYear"
+                    placeholder="เลือกปี"
+                    [(value)]="dataFilter.year"
+                    [showClearButton]="false"
+                    width="150"
+                  ></dx-select-box>
+                  <dx-select-box
+                    [dataSource]="dataMonth"
+                    placeholder="เลือกเดือน"
+                    [(value)]="dataFilter.monthId"
+                    [(selectedItem)]="dataFilter.month"
+                    [showClearButton]="false"
+                    valueExpr="id"
+                    displayExpr="name"
+                    width="180"
+                    class="ms-2"
+                  ></dx-select-box>
+                  <dx-select-box
+                    [dataSource]="dataBank"
+                    placeholder="เลือกธนาคาร"
+                    [(value)]="dataFilter.bankId"
+                    [(selectedItem)]="dataFilter.bank"
+                    [showClearButton]="false"
+                    valueExpr="bankId"
+                    displayExpr="bankShortName"
+                    width="250"
+                    class="ms-2"
+                  ></dx-select-box>
+                  <!-- <dx-select-box
+                    placeholder="เลือก"
+                    [showClearButton]="false"
+                    [dataSource]="xMaster.ViewBy"
+                    valueExpr="DocuFlag"
+                    displayExpr="Caption"
+                    [(ngModel)]="xFilter.viewBy"
+                    width="130"
+                  ></dx-select-box> -->
+                </div>
+                <button
+                  class="btn btn-primary btn-sm btn-round fw-bold min-w-100px"
+                  (click)="searchClick($event)"
+                >
+                  <span class="text-icon">
+                    <!-- <i class="ki-duotone ki-magnifier">
+                      <i class="path1"></i>
+                      <i class="path2"></i>
+                    </i> -->
+                    <span class="svg-icon svg-icon-muted"
+                      ><svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect
+                          opacity="0.5"
+                          x="17.0365"
+                          y="15.1223"
+                          width="8.15546"
+                          height="2"
+                          rx="1"
+                          transform="rotate(45 17.0365 15.1223)"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </span>
+                    Search
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline btn-outline-primary btn-sm btn-round fw-bold"
+                  (click)="newClick()"
+                  *ngIf="checkCanEdit()"
+                >
+                  <span class="text-icon">
+                    <!-- <i class="ki-duotone ki-plus">
+                  <i class="path1"></i>
+                  <i class="path2"></i>
+                </i> -->
+                    <span class="svg-icon svg-icon-muted">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect
+                          opacity="0.5"
+                          x="11.364"
+                          y="20.364"
+                          width="16"
+                          height="2"
+                          rx="1"
+                          transform="rotate(-90 11.364 20.364)"
+                          fill="currentColor"
+                        />
+                        <rect
+                          x="4.36396"
+                          y="11.364"
+                          width="16"
+                          height="2"
+                          rx="1"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </span>
+                    New
+                  </span>
+                </button>
+                
+                <button
+                  class="btn btn-danger btn-sm btn-round fw-bold min-w-100px"
+                  (click)="deleteClick()"
+                >
+                  <span class="text-icon">
+                    <!-- <i class="ki-duotone ki-magnifier">
+                      <i class="path1"></i>
+                      <i class="path2"></i>
+                    </i> -->
+                    <i class="fa-solid fa-trash"></i>
+                    Delete
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card pt-0 bl-3 border-warning">
+        <div class="card-body px-0 pt-6">
+          <dx-data-grid
+            #dxDataGridList
+            [(dataSource)]="data"
+            [showBorders]="true"
+            [allowColumnResizing]="true"
+            [columnAutoWidth]="true"
+            keyExpr="statementImportId"
+          >
+            <!-- <dxo-column-fixing [enabled]="true"></dxo-column-fixing> -->
+            <dxo-group-panel [visible]="true"></dxo-group-panel>
+            <dxo-selection mode="none"></dxo-selection>
+            <dxo-sorting mode="multiple"></dxo-sorting>
+            <dxo-filter-row visible="true" applyFilter="auto"></dxo-filter-row>
+            <dxo-header-filter visible="true"></dxo-header-filter>
+            <dxo-paging [pageSize]="10"></dxo-paging>
+            <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+            <dxo-export [enabled]="true"></dxo-export>
+            <dxo-pager
+              [showPageSizeSelector]="true"
+              [allowedPageSizes]="[10, 20, 50, 100]"
+              [showInfo]="true"
+            ></dxo-pager>
+            <!-- <dxi-column
+              caption="#"
+              alignment="center"
+              width="55"
+              cellTemplate="gridRowNoCellTemplate"
+            >
+            </dxi-column> -->
+            <dxi-column
+              dataField="year"
+              caption="ปี"
+              width="100"
+              alignment="center"
+            ></dxi-column>
+            <dxi-column
+              dataField="monthName"
+              caption="เดือน"
+              width="100"
+            ></dxi-column>
+            <dxi-column
+              dataField="bankShortName"
+              caption="ธนาคาร"
+              width="150"
+              alignment="center"
+            ></dxi-column>
+            <dxi-column dataField="fileName" caption="ชื่อไฟล์"></dxi-column>
+            <!-- <dxi-column
+              cellTemplate="gridStatusCellTemplate"
+              dataField="status"
+              caption="สถานะ"
+              width="150"
+              alignment="center"
+            ></dxi-column> -->
+            <!-- <dxi-column
+              dataField="remark"
+              caption="รายละเอียด"
+              alignment="center"
+            ></dxi-column> -->
+            <dxi-column
+              dataField="importName"
+              caption="สร้างโดย"
+              width="150"
+              alignment="center"
+            ></dxi-column>
+            <dxi-column
+              dataField="importDatetime"
+              caption="Updated Date"
+              alignment="center"
+              dataType="date"
+              format="dd/MM/yyyy HH:mm"
+              width="150"
+            ></dxi-column>
+
+            <!-- <dxi-column
+              cellTemplate="gridActionCellTemplate"
+              caption=""
+              alignment="center"
+              [width]="100"
+              [fixed]="true"
+              fixedPosition="right"
+            ></dxi-column> -->
+
+            <div *dxTemplate="let option of 'gridRowNoCellTemplate'">
+              <span>{{ option.rowIndex + 1 }}</span>
+            </div>
+
+            <div *dxTemplate="let item of 'gridLinkCellTemplate'">
+              <a href="javascript:;">
+                <span class="">{{ item.data?.fileName }}</span>
+              </a>
+            </div>
+
+            <div *dxTemplate="let item of 'gridStatusCellTemplate'">
+              <span
+                class="badge fw-bold justify-content-center"
+                [ngClass]="{
+                  'badge-warning': item.data?.status === 'Waiting',
+                  'badge-danger': item.data?.status === 'Fail',
+                  'badge-success': item.data?.status === 'Completed',
+                }"
+                style="min-width: 80px"
+                >{{ item.data?.status }}</span
+              >
+            </div>
+            <!-- <div *dxTemplate="let item of 'gridAuditCellTemplate'">
+              <div class="d-flex flex-column justify-content-center">
+                <span class="fs-8 text-gray-500 mb-1">
+                  by {{ item.data?.createBy }}
+                </span>
+                <span class="mb-1 fs-7">{{ item.data?.createDate }}</span>
+              </div>
+            </div> -->
+            <div *dxTemplate="let actionCell of 'gridActionCellTemplate'">
+              <button
+                class="btn btn-outline btn-outline-primary btn-sm btn-round fw-bold"
+                style="padding: 0rem 0.75rem"
+                *ngIf="actionCell.rowType === 'data'"
+              >
+                <span class="d-flex align-items-center">
+                  <span class="svg-icon svg-icon-muted"
+                    ><svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M16.9 10.7L7 5V19L16.9 13.3C17.9 12.7 17.9 11.3 16.9 10.7Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                  Run
+                </span>
+              </button>
+            </div>
+
+            <!-- <div *dxTemplate="let refStatusCell of 'gridRefStatusCellTemplate'" [class]="refStatusCell | gridRefStatusClassCellData">
+              <span>{{ refStatusCell | gridRefStatusTextCellData }}</span>
+            </div>
+            <div *dxTemplate="let statusCell of 'gridStatusCellTemplate'" [class]="statusCell | gridStatusClassCellData">
+              <span>{{ statusCell | gridStatusTextCellData }}</span>
+            </div>
+            <div *dxTemplate="let actionCell of 'gridActionCellTemplate'">
+              <button class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-info p-0 w-20px h-20px" (click)="editClick(actionCell)" *ngIf="actionCell.rowType == 'data'">
+                <i [class]="actionCell | gridEditIconClass"></i>
+              </button>
+              <span class="px-1"></span>
+              <button class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-danger p-0 w-20px h-20px" (click)="deleteClick(actionCell)" *ngIf="actionCell.rowType == 'data'">
+                <i [class]="actionCell | gridDeleteIconClass"></i>
+              </button>
+            </div> -->
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<import-statement-info-popup
+  #importStatementInfoPopup
+  (importClick)="importClick($event)"
+>
+</import-statement-info-popup>

@@ -1,0 +1,26 @@
+.page-content {
+  max-width: 1000px;
+  margin: 0 auto;
+
+  .card-form-control {
+    .card-body {
+      border: solid 1px var(--bs-gray-300);
+      border-radius: 5px;
+      margin-top: 2rem;
+
+      .col-form-label {
+        color: var(--bs-gray-600);
+      }
+
+      ::ng-deep {
+        .dx-texteditor-input {
+          font-weight: bold;
+
+          &[readonly] {
+            background-color: #f8f8f8;
+          }
+        }
+      }
+    }
+  }
+}
